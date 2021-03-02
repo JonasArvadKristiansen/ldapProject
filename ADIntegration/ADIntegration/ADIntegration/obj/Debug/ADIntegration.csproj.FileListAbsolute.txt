@@ -1,0 +1,14 @@
+C:\Users\madse\source\repos\ADIntegration\ADIntegration\bin\Debug\ADIntegration.exe.config
+C:\Users\madse\source\repos\ADIntegration\ADIntegration\bin\Debug\ADIntegration.exe
+C:\Users\madse\source\repos\ADIntegration\ADIntegration\bin\Debug\ADIntegration.pdb
+C:\Users\madse\source\repos\ADIntegration\ADIntegration\obj\Debug\ADIntegration.csprojAssemblyReference.cache
+C:\Users\madse\source\repos\ADIntegration\ADIntegration\obj\Debug\ADIntegration.csproj.CoreCompileInputs.cache
+C:\Users\madse\source\repos\ADIntegration\ADIntegration\obj\Debug\ADIntegration.exe
+C:\Users\madse\source\repos\ADIntegration\ADIntegration\obj\Debug\ADIntegration.pdb
+C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\bin\Debug\ADIntegration.exe.config
+C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\bin\Debug\ADIntegration.exe
+C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\bin\Debug\ADIntegration.pdb
+C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.csprojAssemblyReference.cache
+C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.csproj.CoreCompileInputs.cache
+C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.exe
+C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.pdb
