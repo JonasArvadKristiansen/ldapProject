@@ -105,14 +105,15 @@ namespace ADIntegration
 
                 }
 
-                Console.WriteLine("");
-                Console.WriteLine("Press <Enter> to exit...");
-                while (Console.ReadKey().Key != ConsoleKey.Enter)
-                {
-                    App();
-                }
-
             }
+
+            Console.WriteLine("");
+            Console.WriteLine("Press any key to go back");
+            while (Console.ReadKey().Key != ConsoleKey.Enter)
+            {
+                App();
+            }
+
         }
 
     }
