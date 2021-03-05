@@ -1,5 +1,6 @@
 ﻿using System;
 using System.DirectoryServices;
+using System.Threading;
 
 namespace ADIntegration
 {
@@ -12,33 +13,34 @@ namespace ADIntegration
 
         static void App()
         {
-            Console.Clear();
-            //Name, Mail, Mobile, Telephone, Address, Postal
-            SearchResultCollection results;
-            string ip = "LDAP://192.168.132.10";
-
-            Console.WriteLine("Enter Username: ");
-            string user = Console.ReadLine();
-
-            Console.Clear();
-            Console.WriteLine("Enter Password: ");
-            string password = Console.ReadLine();
-
-            Console.Clear();
-            Console.WriteLine("How do you want to lookup this person? Mail/Name/Mobile: ");
-            string searchOption = Console.ReadLine();
-            Console.WriteLine();
-            Console.WriteLine("Value: ");
-            string input = Console.ReadLine();
-
-            Console.Clear();
-
-            string[] options = { "Name", "Mail", "Mobile", "TelephoneNumber", "StreetAddress", "PostalCode" };
-
             try
             {
+                Console.Clear();
+                //Name, Mail, Mobile, Telephone, Address, Postal
+                SearchResultCollection results;
+                string ip = "LDAP://192.168.132.10";
+
+                Console.WriteLine("Enter Username: ");
+                string user = Console.ReadLine();
+
+                Console.Clear();
+                Console.WriteLine("Enter Password: ");
+                string password = Console.ReadLine();
+
                 DirectoryEntry de = new DirectoryEntry(ip, user, password);
                 DirectorySearcher ds = new DirectorySearcher(de);
+                //results = ds.FindAll();
+
+                Console.Clear();
+                Console.WriteLine("How do you want to lookup this person? Mail/Name/Mobile: ");
+                string searchOption = Console.ReadLine();
+                Console.WriteLine();
+                Console.WriteLine("Value: ");
+                string input = Console.ReadLine();
+
+                Console.Clear();
+
+                string[] options = { "Name", "Mail", "Mobile", "TelephoneNumber", "StreetAddress", "PostalCode" };
 
                 switch (searchOption.ToLower())
                 {
@@ -55,7 +57,7 @@ namespace ADIntegration
                 }
 
                 results = ds.FindAll();
-
+                        
                 foreach (SearchResult res in results)
                 {
                     foreach (string option in options)
@@ -71,18 +73,23 @@ namespace ADIntegration
                             Console.ResetColor();
                         }
                     }
+                            
                     Console.WriteLine();
                 }
-            }
-            catch (Exception)
-            {
-                Console.Clear();
-                Console.WriteLine("Something went wrong :(");
+
                 Console.WriteLine("Press any key to try again");
                 while (Console.ReadKey().Key != ConsoleKey.Enter)
                 {
                     App();
                 }
+                        
+            }
+            catch
+            {
+                Console.WriteLine("Sorry");
+                Console.WriteLine("Before ReadKey 2");
+                Thread.Sleep(2500);
+                App();
             }
 
         }
