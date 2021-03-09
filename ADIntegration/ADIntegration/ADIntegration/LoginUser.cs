@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.DirectoryServices.AccountManagement;
 
 namespace ADIntegration
 {
     class LoginUser
     {
-
-        public static DirectorySearcher Login()
+        public static Tuple<DirectorySearcher, string> Login()
         {
             Console.Clear();
             //Name, Mail, Mobile, Telephone, Address, Postal
@@ -26,14 +26,28 @@ namespace ADIntegration
 
             DirectoryEntry entry = new DirectoryEntry(ip, user, password);
             DirectorySearcher searcher = new DirectorySearcher(entry);
+            SearchResultCollection results;
+            searcher.Filter = "(&(objectCategory=User)(objectClass=person))";
+            results = searcher.FindAll();
 
             try
             {
-                searcher.FindAll();
-                return searcher;
+                foreach (SearchResult result in results)
+                {
+                    //Console.WriteLine(result.Properties["name"][0]);
+                    //Console.WriteLine(result.Properties["memberof"][0]+ "\n");
+                    if (result.Properties["SamAccountName"][0].ToString().ToLower() == user.ToLower())
+                    {
+                        string memberOf = result.Properties["memberof"][0].ToString();
+                        return Tuple.Create(searcher, memberOf);
+                    }
+                }
+                return null;
             }
             catch
             {
+                Console.WriteLine("TESSSSSSSSSSST");
+                Console.ReadKey();
                 Program.App();
                 return null;
             }

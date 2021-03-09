@@ -14,9 +14,9 @@ namespace ADIntegration
         public static void App()
         {
 
-            DirectorySearcher searcher = LoginUser.Login();
+            var login = LoginUser.Login();
 
-            FindUser.Find(searcher);
+            FindUser.Find(login.Item1, login.Item2);
 
         }
     }
