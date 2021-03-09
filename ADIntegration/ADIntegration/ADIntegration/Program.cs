@@ -18,7 +18,6 @@ namespace ADIntegration
 
             FindUser.Find(searcher);
 
-
         }
     }
 }

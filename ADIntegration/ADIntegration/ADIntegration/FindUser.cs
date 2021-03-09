@@ -41,6 +41,13 @@ namespace ADIntegration
                 }
                 Console.WriteLine();
             }
+
+            Console.WriteLine("Press any key to try again or 'Enter' to exit");
+            while (Console.ReadKey().Key != ConsoleKey.Enter)
+            {
+                Find(searcher);
+            }
+
         }
 
     }
