@@ -28,47 +28,48 @@ namespace ADIntegration
                 searcher.Filter = $"(&(objectCategory=User)(objectClass=person)(" + searchOption.ToLower() + "=" + searchValue + "*))";
             else
                 searcher.Filter = $"(&(objectCategory=User)(objectClass=person)(memberOf={memberOf.ToLower()})(" + searchOption.ToLower() + "=" + searchValue + "*))";
-            
-                try
+
+            results = searcher.FindAll();
+
+            if (results.Count > 0)
+            {
+                foreach (SearchResult res in results)
                 {
-                    results = searcher.FindAll();
-                    foreach (SearchResult res in results)
+                    foreach (string option in options)
                     {
-                        foreach (string option in options)
+                        try
                         {
-                            try
-                            {
-                             
-                                Console.WriteLine($"{option}: {res.Properties[option][0].ToString()}");
-                                
-                            }
-                            catch
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"{option} is missing");
-                                Console.ResetColor();
-                            }
+
+                            Console.WriteLine($"{option}: {res.Properties[option][0].ToString()}");
+
+                        }
+                        catch
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"{option} is missing");
+                            Console.ResetColor();
                         }
                     }
-                    Console.WriteLine();
-                    Console.WriteLine("Press any key to try again or 'Enter' to exit");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter)
-                    {
-                        Find(searcher, memberOf);
-                    }
                 }
-                catch
+                Console.WriteLine();
+                Console.WriteLine("Press any key to try again or 'Enter' to exit");
+                while (Console.ReadKey().Key != ConsoleKey.Enter)
                 {
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("No access :(");
-                    Console.ResetColor();
-                    Console.WriteLine("Press any key to try again or 'Enter' to exit");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter)
-                    {
-                        Find(searcher, memberOf);
-                    }
+                    Find(searcher, memberOf);
                 }
+            } else
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Account dosent exist :(");
+                Console.ResetColor();
+                Console.WriteLine("Press any key to try again or 'Enter' to exit");
+                while (Console.ReadKey().Key != ConsoleKey.Enter)
+                {
+                    Find(searcher, memberOf);
+                }
+            }
+
 
         }
 

@@ -40,8 +40,6 @@ namespace ADIntegration
                     if (result.Properties["SamAccountName"][0].ToString().ToLower() == user.ToLower())
                     {
                         memberOf = result.Properties["memberof"][0].ToString();
-                        Console.WriteLine(memberOf);
-                        Console.ReadKey();
                         
                         return Tuple.Create(searcher, memberOf);
                     }
@@ -53,7 +51,7 @@ namespace ADIntegration
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Account dosent exist :(");
+                Console.WriteLine("Account dosent exist or you dont have permission to view this :(");
                 Console.ResetColor();
                 Console.WriteLine("Press any key to try again or 'Enter' to exit");
                 while (Console.ReadKey().Key != ConsoleKey.Enter)
