@@ -62,10 +62,9 @@ namespace ADIntegration
                 Console.WriteLine("Account dosent exist or you dont have permission to view this :(");
                 Console.ResetColor();
                 Console.WriteLine("Press any key to try again or 'Enter' to exit");
-                while (Console.ReadKey().Key != ConsoleKey.Enter)
-                {
+                if (Console.ReadKey().Key != ConsoleKey.Enter)
                     Login();
-                }
+
                 return null;
             }
               
