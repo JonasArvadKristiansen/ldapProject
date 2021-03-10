@@ -14,7 +14,7 @@ namespace ADIntegration
         public static Tuple<DirectorySearcher, string> Login()
         {
             Console.Clear();
-            //Name, Mail, Mobile, Telephone, Address, Postal
+            // Our server LDAP ip that we want a connection to.
             string ip = "LDAP://192.168.132.10";
 
 
@@ -25,22 +25,30 @@ namespace ADIntegration
             Console.WriteLine("Enter Password: ");
             string password = Console.ReadLine();
 
+            // Making our entry with the ip, username and password
             DirectoryEntry entry = new DirectoryEntry(ip, user, password);
+
+            // Creating our searcher with our entry from above
             DirectorySearcher searcher = new DirectorySearcher(entry);
+
+            // Creates a collection where we can save the queries
             SearchResultCollection results;
+
+            // Sets search filter to everyone in our AD
             searcher.Filter = "(&(objectCategory=User)(objectClass=person))";
-            string memberOf = null;
             try
             {
                 results = searcher.FindAll();
+
+                // Foreach results we find.
                 foreach (SearchResult result in results)
                 {
-                    //Console.WriteLine(result.Properties["name"][0]);
-                    //Console.WriteLine(result.Properties["memberof"][0]+ "\n");
+                    // If the found result name is equal to the username we entered, then create a string variable with what group the person belongs to.
                     if (result.Properties["SamAccountName"][0].ToString().ToLower() == user.ToLower())
                     {
-                        memberOf = result.Properties["memberof"][0].ToString();
+                        string memberOf = result.Properties["memberof"][0].ToString();
                         
+                        // Returns our Tuple with our DirectorySearcher and our string variable
                         return Tuple.Create(searcher, memberOf);
                     }
                 }

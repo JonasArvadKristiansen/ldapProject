@@ -22,8 +22,11 @@ namespace ADIntegration
 
             Console.Clear();
             SearchResultCollection results;
+
+            // Array of all the options we want to be displayed.
             string[] options = { "Name", "Mail", "Mobile", "TelephoneNumber", "StreetAddress", "PostalCode", "memberof" };
 
+            // If the logged in person group is Administration then show him every user we got.
             if (memberOf.Contains("CN=Administration"))
                 searcher.Filter = $"(&(objectCategory=User)(objectClass=person)(" + searchOption.ToLower() + "=" + searchValue + "*))";
             else
@@ -31,12 +34,16 @@ namespace ADIntegration
 
             results = searcher.FindAll();
 
+            // If we get no results, throw us an alert.
             if (results.Count > 0)
             {
+                // Foreach result in our results collection.
                 foreach (SearchResult res in results)
                 {
+                    // Foreach option in our options array.
                     foreach (string option in options)
                     {
+                        // If the infomation exist write it out or write out the information dosent exist.
                         try
                         {
 
