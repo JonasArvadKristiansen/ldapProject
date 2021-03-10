@@ -23,50 +23,52 @@ namespace ADIntegration
             Console.Clear();
             SearchResultCollection results;
             string[] options = { "Name", "Mail", "Mobile", "TelephoneNumber", "StreetAddress", "PostalCode", "memberof" };
-            searcher.Filter = $"(&(objectCategory=User)(sAMAccountName=*)(objectClass=person)(memberof={memberOf})(" + searchOption.ToLower()+"=" + searchValue + "*))";
-            //searcher.Filter = $"(&(objectCategory=Person)({memberOf})(" + searchOption.ToLower() + "=" + searchValue + "*))";
-            results = searcher.FindAll();
-            try
-            {
-                foreach (SearchResult res in results)
-                {
-                    foreach (string option in options)
-                    {
-                        try
-                        {
-                            if (option.ToLower() == "memberof")
-                            {
-                                Console.WriteLine($"{option}: {res.Properties["memberof"][0].ToString()}");
-                                Console.WriteLine($"{option}: {res.Properties["memberof"][1].ToString()}");
 
-                            }
-                            else
-                            {
-                                Console.WriteLine($"{option}: {res.Properties[option][0].ToString()}");
-                            }
-                        }
-                        catch
+            if (memberOf.Contains("CN=Administration"))
+                searcher.Filter = $"(&(objectCategory=User)(objectClass=person)(" + searchOption.ToLower() + "=" + searchValue + "*))";
+            else
+                searcher.Filter = $"(&(objectCategory=User)(objectClass=person)(memberOf={memberOf.ToLower()})(" + searchOption.ToLower() + "=" + searchValue + "*))";
+            
+                try
+                {
+                    results = searcher.FindAll();
+                    foreach (SearchResult res in results)
+                    {
+                        foreach (string option in options)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"{option} is missing");
-                            Console.ResetColor();
+                            try
+                            {
+                             
+                                Console.WriteLine($"{option}: {res.Properties[option][0].ToString()}");
+                                
+                            }
+                            catch
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine($"{option} is missing");
+                                Console.ResetColor();
+                            }
                         }
                     }
-
                     Console.WriteLine();
+                    Console.WriteLine("Press any key to try again or 'Enter' to exit");
+                    while (Console.ReadKey().Key != ConsoleKey.Enter)
+                    {
+                        Find(searcher, memberOf);
+                    }
                 }
-            }
-            catch
-            {
-                Console.WriteLine("No access :(");
-                Console.ReadKey();
-            }
-
-            Console.WriteLine("Press any key to try again or 'Enter' to exit");
-            while (Console.ReadKey().Key != ConsoleKey.Enter)
-            {
-                Find(searcher, memberOf);
-            }
+                catch
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("No access :(");
+                    Console.ResetColor();
+                    Console.WriteLine("Press any key to try again or 'Enter' to exit");
+                    while (Console.ReadKey().Key != ConsoleKey.Enter)
+                    {
+                        Find(searcher, memberOf);
+                    }
+                }
 
         }
 

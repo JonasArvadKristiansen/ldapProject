@@ -17,6 +17,7 @@ namespace ADIntegration
             //Name, Mail, Mobile, Telephone, Address, Postal
             string ip = "LDAP://192.168.132.10";
 
+
             Console.WriteLine("Enter Username: ");
             string user = Console.ReadLine();
 
@@ -28,27 +29,37 @@ namespace ADIntegration
             DirectorySearcher searcher = new DirectorySearcher(entry);
             SearchResultCollection results;
             searcher.Filter = "(&(objectCategory=User)(objectClass=person))";
-            results = searcher.FindAll();
-
+            string memberOf = null;
             try
             {
+                results = searcher.FindAll();
                 foreach (SearchResult result in results)
                 {
                     //Console.WriteLine(result.Properties["name"][0]);
                     //Console.WriteLine(result.Properties["memberof"][0]+ "\n");
                     if (result.Properties["SamAccountName"][0].ToString().ToLower() == user.ToLower())
                     {
-                        string memberOf = result.Properties["memberof"][0].ToString();
+                        memberOf = result.Properties["memberof"][0].ToString();
+                        Console.WriteLine(memberOf);
+                        Console.ReadKey();
+                        
                         return Tuple.Create(searcher, memberOf);
                     }
                 }
+
                 return null;
             }
             catch
             {
-                Console.WriteLine("TESSSSSSSSSSST");
-                Console.ReadKey();
-                Program.App();
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Account dosent exist :(");
+                Console.ResetColor();
+                Console.WriteLine("Press any key to try again or 'Enter' to exit");
+                while (Console.ReadKey().Key != ConsoleKey.Enter)
+                {
+                    Login();
+                }
                 return null;
             }
               
