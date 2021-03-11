@@ -11,9 +11,9 @@ namespace ADIntegration
 {
     class LoginUser
     { 
-        public static Tuple<DirectorySearcher, string> Login()
+        public static Tuple<DirectorySearcher, string, List<User>> Login()
         {
-            
+
             Console.Clear();
             // Our server LDAP ip that we want a connection to.
             string ip = "LDAP://192.168.132.10";
@@ -36,26 +36,12 @@ namespace ADIntegration
 
             // Sets search filter to everyone in our AD
             searcher.Filter = "(&(objectCategory=User)(objectClass=person))";
-            results = searcher.FindAll();
-            UserData(results);
-            try
-            {
-                
-                // Foreach results we find.
-                foreach (SearchResult result in results) {
-                    string name = result.Properties["name"][0].ToString();
-                    string mail = result.Properties["mail"][0].ToString();
-                    int mobile = int.Parse(result.Properties["mobile"][0].ToString());
-                    int telephone = int.Parse(result.Properties["telephoneNumber"][0].ToString());
-                    string streetAddress = result.Properties["streetAddress"][0].ToString();
-                    int postalCode = int.Parse(result.Properties["postalCode"][0].ToString());
-                    string memberOf = result.Properties["memberOf"][0].ToString();
-                    //User person = new User(name, mail, mobile, telephone, streetAddress, postalCode, memberOf);
-                    
-                }
-                return null;
+            
+            try {
+                results = searcher.FindAll();
+                return Tuple.Create(searcher, user, UserData(results));
             }
-            catch{
+            catch {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Account dosent exist or you dont have permission to view this :(");
@@ -67,28 +53,33 @@ namespace ADIntegration
                 return null;
             }
         }
-        public static void UserData(SearchResultCollection results)
-        {
+        public static List<User> UserData(SearchResultCollection results) {
             List<User> users = new List<User>();
-            string[] options = { "Name", "Mail", "Mobile", "TelephoneNumber", "StreetAddress", "PostalCode", "memberof" };
+            string[] options = { "Name", "Mail", "Mobile", "TelephoneNumber", "StreetAddress", "PostalCode", "Memberof" };
 
+            string Name = "";
+            string Mail = "";
+            string Mobile = "";
+            string TelephoneNumber = "";
+            string StreetAddress = "";
+            string PostalCode = "";
+            string Memberof = "";
 
+            string[] subcat = {Name, Mail, Mobile, TelephoneNumber, StreetAddress, PostalCode, Memberof};
 
-
-            foreach (SearchResult result in results)
-            {
-                foreach(string op in options)
-                {
-                    if (result.Properties[op].Count <= 0)
-                    {
-                        Console.WriteLine("I WIN");
-                    }
+            foreach (SearchResult result in results){
+                for(int i = 0; i < options.Length; i++) {
+                    if (result.Properties[options[i]].Count <= 0)
+                        subcat[i] = "No data found";
                     else
-                        Console.WriteLine("I LOST");
+                        subcat[i] = result.Properties[options[i]][0].ToString();
                 }
-                Console.WriteLine(result.Properties["Mail"].Count);
-               
+                User person = new User(subcat[0], subcat[1], subcat[2], subcat[3], subcat[4], subcat[5], subcat[6]);
+                users.Add(person);
             }
+            foreach(User user in users)
+                Console.WriteLine($"{user.name}, {user.mail}, {user.mobile}, {user.telephone}, {user.streetAddress}, {user.postalCode}, {user.memberOf},");
+            return users;
         }
     }
 }
