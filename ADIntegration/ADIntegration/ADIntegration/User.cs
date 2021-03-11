@@ -8,6 +8,7 @@ namespace ADIntegration
 {
     class User
     {
+        public string firstname;
         public string name;
         public string mail;
         public string mobile;
@@ -15,8 +16,9 @@ namespace ADIntegration
         public string streetAddress;
         public string postalCode;
         public string memberOf;
-        public User(string Name, string Mail, string Mobile, string Telephone, string StreetAddress, string PostalCode, string MemberOf)
+        public User(string FirstName, string Name, string Mail, string Mobile, string Telephone, string StreetAddress, string PostalCode, string MemberOf)
         {
+            firstname = FirstName;
             name = Name;
             mail = Mail;
             mobile = Mobile;

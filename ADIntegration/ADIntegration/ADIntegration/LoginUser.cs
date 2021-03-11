@@ -11,7 +11,7 @@ namespace ADIntegration
 {
     class LoginUser
     { 
-        public static Tuple<DirectorySearcher, string, List<User>> Login()
+        public static Tuple<List<User>, string> Login()
         {
 
             Console.Clear();
@@ -19,14 +19,14 @@ namespace ADIntegration
             string ip = "LDAP://192.168.132.10";
 
             Console.WriteLine("Enter Username: ");
-            string user = Console.ReadLine();
+            string firstname = Console.ReadLine();
 
             Console.Clear();
             Console.WriteLine("Enter Password: ");
             string password = Console.ReadLine();
 
             // Making our entry with the ip, username and password
-            DirectoryEntry entry = new DirectoryEntry(ip, user, password);
+            DirectoryEntry entry = new DirectoryEntry(ip, firstname, password);
 
             // Creating our searcher with our entry from above
             DirectorySearcher searcher = new DirectorySearcher(entry);
@@ -39,7 +39,7 @@ namespace ADIntegration
             
             try {
                 results = searcher.FindAll();
-                return Tuple.Create(searcher, user, UserData(results));
+                return Tuple.Create(UserData(results), firstname);
             }
             catch {
                 Console.Clear();
@@ -55,8 +55,9 @@ namespace ADIntegration
         }
         public static List<User> UserData(SearchResultCollection results) {
             List<User> users = new List<User>();
-            string[] options = { "Name", "Mail", "Mobile", "TelephoneNumber", "StreetAddress", "PostalCode", "Memberof" };
+            string[] options = { "givenName", "Name", "Mail", "Mobile", "TelephoneNumber", "StreetAddress", "PostalCode", "Memberof" };
 
+            string FirstName = "";
             string Name = "";
             string Mail = "";
             string Mobile = "";
@@ -65,7 +66,7 @@ namespace ADIntegration
             string PostalCode = "";
             string Memberof = "";
 
-            string[] subcat = {Name, Mail, Mobile, TelephoneNumber, StreetAddress, PostalCode, Memberof};
+            string[] subcat = {FirstName, Name, Mail, Mobile, TelephoneNumber, StreetAddress, PostalCode, Memberof};
 
             foreach (SearchResult result in results){
                 for(int i = 0; i < options.Length; i++) {
@@ -74,11 +75,11 @@ namespace ADIntegration
                     else
                         subcat[i] = result.Properties[options[i]][0].ToString();
                 }
-                User person = new User(subcat[0], subcat[1], subcat[2], subcat[3], subcat[4], subcat[5], subcat[6]);
+                User person = new User(subcat[0], subcat[1], subcat[2], subcat[3], subcat[4], subcat[5], subcat[6], subcat[7]);
                 users.Add(person);
             }
-            foreach(User user in users)
-                Console.WriteLine($"{user.name}, {user.mail}, {user.mobile}, {user.telephone}, {user.streetAddress}, {user.postalCode}, {user.memberOf},");
+            /*foreach(User user in users)
+                Console.WriteLine($"{user.name}, {user.mail}, {user.mobile}, {user.telephone}, {user.streetAddress}, {user.postalCode}, {user.memberOf},");*/
             return users;
         }
     }
