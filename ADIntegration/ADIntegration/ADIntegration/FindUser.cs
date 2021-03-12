@@ -47,15 +47,14 @@ namespace ADIntegration
             {
                 if (user.firstname.ToLower() == searchValue.ToLower() || user.mail.ToLower() == searchValue.ToLower() || user.mobile.ToLower() == searchValue.ToLower())
                 {
-
+                    // User of Administration
                     if (user.memberOf.Contains("Administration"))
                     {
+                        // If we are in group Administration show us Administration member else dont show anything
                         if (group == "Administration")
                         {
                             InfoController(user);
-                        }
-
-                        if (group == "Ledelse")
+                        } else
                         {
                             Console.ForegroundColor = ConsoleColor.DarkRed;
                             Console.Write("You dont have permission to see ");
@@ -70,15 +69,19 @@ namespace ADIntegration
                                 Find(users, firstname);
                             }
                         }
+
                     }
 
+                    // User of Ledelse
                     if (user.memberOf.Contains("Ledelse"))
                     {
+                        // If we are en group Administration show us Ledelse member
                         if (group == "Administration")
                         {
                             InfoController(user);
                         }
 
+                        // If we are en group Ledelse show us Ledelse member
                         if (group == "Ledelse")
                         {
                             InfoController(user);
