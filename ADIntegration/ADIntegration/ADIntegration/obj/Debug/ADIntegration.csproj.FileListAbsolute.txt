@@ -12,6 +12,16 @@ C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADI
 C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.csproj.CoreCompileInputs.cache
 C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.exe
 C:\Users\xboxs\Downloads\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.pdb
+<<<<<<< HEAD
+=======
+C:\Users\jezpe\OneDrive\Skrivebord\ldapProject\ADIntegration\ADIntegration\ADIntegration\bin\Debug\ADIntegration.exe.config
+C:\Users\jezpe\OneDrive\Skrivebord\ldapProject\ADIntegration\ADIntegration\ADIntegration\bin\Debug\ADIntegration.exe
+C:\Users\jezpe\OneDrive\Skrivebord\ldapProject\ADIntegration\ADIntegration\ADIntegration\bin\Debug\ADIntegration.pdb
+C:\Users\jezpe\OneDrive\Skrivebord\ldapProject\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.csprojAssemblyReference.cache
+C:\Users\jezpe\OneDrive\Skrivebord\ldapProject\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.csproj.CoreCompileInputs.cache
+C:\Users\jezpe\OneDrive\Skrivebord\ldapProject\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.exe
+C:\Users\jezpe\OneDrive\Skrivebord\ldapProject\ADIntegration\ADIntegration\ADIntegration\obj\Debug\ADIntegration.pdb
+>>>>>>> Development
 C:\Users\madse\Documents\GitHub\ldapProject\ADIntegration\ADIntegration\ADIntegration\bin\Debug\ADIntegration.exe.config
 C:\Users\madse\Documents\GitHub\ldapProject\ADIntegration\ADIntegration\ADIntegration\bin\Debug\ADIntegration.exe
 C:\Users\madse\Documents\GitHub\ldapProject\ADIntegration\ADIntegration\ADIntegration\bin\Debug\ADIntegration.pdb
